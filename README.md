@@ -16,8 +16,49 @@ We are building a neighbourhood collaboration site and we want to make a system 
 SQL, as we have strict requirements for data and there should be no null values/empty fields. 
 ### Create a schema for this database
 
+
 ### Consider the requests our API should be capable of handling
+API should handle:
+- Creating a new person, house and address record in database
+- Changing your own records - person, house and address in database
+- Deleting your own records - person, house and address in database
+- Querying the database for house, its address and owner
+- Querying the people table in the database for age brackets and household sizes
 
 ### List the routes you will need with their HTTP verb and path
-### Determine the responses that should be returned and the content types of these requests and responses
+Querying the database for house, its address and owner. 
+* `GET /House`
+* `GET /Address`
+* `GET /Person`  
+
+Querying the people table in the database for age brackets and household sizes. 
+* `GET /Person/age?between=20-25&household=5`- Find person whose age is in the 20-25 bracket and belongs to a household of 5 people 
+
+Creating a new person, house and address record in database. 
+* 'GET /person/new` to receive form to fill out new person
+* `POST /person` to add new person to person table in database
+Changing your own records - person, house and address in database. 
+* `GET /address/:id/edit` - Show user how to edit address
+* `POST /address/:id` - Edit the address   
+
+Deleting your own record. 
+* `DELETE person/:id` - Deletes record of person with that id
+* `DELETE house/:id` - Deletes record of house with that id
+* `DELETE address/:id` - Deletes record of address with that id
+### Determine the responses that should be returned and the content types of these requests and responses  
+| Route                    | Response | Content Type                  |
+|--------------------------|----------|-------------------------------|
+| GET /house/new           |    200   |        HTML Doc - Form        |
+| POST /house              |    201   |             JSON              |
+| GET /house               |    200   |              JSON             |
+| GET /house/:unhappyroute |    404   |             Error             |
+| DELETE /house/:id        |    200   | HTML - Message to say deleted |
+| GET /address/:id/edit    |    200   |        HTML Doc - Form        |
+| POST /address/:id        |    201   |    JSON - Show new address    |
+| DELETE /house/:idNotYourHouse |    403   |             Error        |
+
+
 ### Create documentation for your API on a tool of your choice
+Using GitHub README:
+
+
