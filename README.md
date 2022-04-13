@@ -15,7 +15,7 @@ We are building a neighbourhood collaboration site and we want to make a system 
 ### Consider the type of data we will be storing and type of database we should implement (SQL vs NoSQL)
 SQL, as we have strict requirements for data and there should be no null values/empty fields. 
 ### Create a schema for this database
-
+![Database Schema](Blank%20diagram.png)
 
 ### Consider the requests our API should be capable of handling
 API should handle:
@@ -32,7 +32,7 @@ Querying the database for house, its address and owner.
 * `GET /Person`  
 
 Querying the people table in the database for age brackets and household sizes. 
-* `GET /Person/age?between=20-25&household=5`- Find person whose age is in the 20-25 bracket and belongs to a household of 5 people 
+* `GET /Person/age?between=20+25&household=5`- Find person whose age is in the 20-25 bracket and belongs to a household of 5 people 
 
 Creating a new person, house and address record in database. 
 * 'GET /person/new` to receive form to fill out new person
@@ -58,7 +58,44 @@ Deleting your own record.
 | DELETE /house/:idNotYourHouse |    403   |             Error        |
 
 
-### Create documentation for your API on a tool of your choice
+# Create documentation for your API on a tool of your choice
 Using GitHub README:
+This API uses GET/POST requests to communicate and HTTP response codes to indenticate status and errors. All responses come in standard JSON. All requests must include a content-type of application/json and the body must be valid JSON.
 
+## URL
+/house/:id
+/person/:id
+/address/:id
 
+## Method
+`GET` | `POST` | `DELETE`
+
+## URL Parameters
+Required:
+`id=[integer]`  
+
+Optional:
+`/person/age?between=[integer]+[integer]`  - Find person of age between two integers
+`/person/household=[integer]` - Find person with a household size of integer
+
+## Data Parameters
+If you make a post request, the body payload should look like this:
+```
+ {person name: STRING
+  person age: INT
+  household size: INT
+  
+  }
+```
+
+## Response Codes 
+### Response Codes
+```
+200: Success
+400: Bad request
+401: Unauthorized
+404: Cannot be found
+405: Method not allowed
+422: Unprocessable Entity 
+50X: Server Error
+```
